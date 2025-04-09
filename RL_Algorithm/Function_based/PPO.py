@@ -53,10 +53,17 @@ class Actor(nn.Module):
             Tensor: Selected action values.
         """
         # ========= put your code here ========= #
+        if torch.isnan(state).any() or torch.isinf(state).any():
+            print("❗ NaN or Inf in input state:", state)
+
         x = torch.relu(self.fc1(state))
         x = torch.relu(self.fc2(x))
+        if torch.isnan(x).any():
+            print("❗ NaN detected in hidden layer")
         mu = self.mu(x)
         std = self.log_std.exp().expand_as(mu)
+        std = torch.clamp(std, min=1e-6, max=1.0)  # ✅ ป้องกันค่าพุ่งหรือเป็น 0
+
         return Normal(mu, std)  # Return distribution object
         # ====================================== #
 
@@ -314,11 +321,13 @@ class Actor_Critic_PPO(BaseAlgorithm):
                 # --- Backprop for actor ---
                 self.actor.optimizer.zero_grad()
                 actor_loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.actor.parameters(), max_norm=0.5)
                 self.actor.optimizer.step()
 
                 # --- Backprop for critic ---
                 self.critic.optimizer.zero_grad()
                 critic_loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.critic.parameters(), max_norm=0.5)
                 self.critic.optimizer.step()
 
         self.trajectory.clear()

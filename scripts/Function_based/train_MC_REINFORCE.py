@@ -10,7 +10,7 @@ from isaaclab.app import AppLauncher
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-from RL_Algorithm.Function_based.PPO import Actor_Critic_PPO
+from RL_Algorithm.Function_based.MC_REINFORCE import MC_REINFORCE
 
 from tqdm import tqdm
 
@@ -111,15 +111,18 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # ========================= Can be modified ========================== #
 
     # hyperparameters
+    num_of_action = 13
+    action_range = [-20.0, 20.0]
+    learning_rate = 0.0001
+    hidden_dim = 512
     n_episodes = 5000
-    param_grid = {
-        "learning_rate": [1e-4],
-        "hidden_dim": [128],
-        "discount":[0.99],
-        "eps_clip":[0.2],
-        "entropy_coeff":[0.01],
-        "n_epoch":[5]
-    }
+    initial_epsilon = 1.0
+    epsilon_decay = 0.999
+    final_epsilon = 0.1
+    discount = 0.99
+    buffer_size = 10000
+    batch_size = 128
+    target_update_freq = 1000
 
     # set up matplotlib
     is_ipython = 'inline' in matplotlib.get_backend()
@@ -138,7 +141,15 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     print("device: ", device)
 
     task_name = str(args_cli.task).split('-')[0]  # Stabilize, SwingUp
-    Algorithm_name = "PPO"
+    Algorithm_name = "DQN"
+
+    # Define hyperparameter grid
+    param_grid = {
+        "learning_rate": [1e-3],
+        "hidden_dim": [128],
+        "discount":[0.9],
+        "dropout":[0.0]
+    }
 
     # Create all combinations
     grid = list(itertools.product(*param_grid.values()))
@@ -146,16 +157,14 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     for config_idx, values in enumerate(grid):
         config = dict(zip(param_names, values))
-        print(f"\n===== Training Config {config_idx+1}/{len(grid)}: {config} =====")
+        # print(f"\n===== Training Config {config_idx+1}/{len(grid)}: {config} =====")
 
-        agent = Actor_Critic_PPO(
+        agent = MC_REINFORCE(
             device=device,
             learning_rate=config["learning_rate"],
             hidden_dim=config["hidden_dim"],
             discount_factor=config["discount"],
-            eps_clip=config["eps_clip"],
-            entropy_coeff=config["entropy_coeff"],
-            n_epoch=config["n_epoch"]
+            dropout=config["dropout"]
         )
 
         # reset environment
@@ -167,7 +176,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             # with torch.inference_mode():
 
             for episode in tqdm(range(n_episodes)): # type: ignore
-                agent.learn(env, max_steps=1000, num_agents=1)
+                # print(agent.epsilon)
+                agent.learn(env)
 
             # if episode % 100 == 0: # type: ignore
             #     print(agent.epsilon)
@@ -177,8 +187,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             #     full_path = os.path.join(f"w/{task_name}", Algorithm_name)
             #     agent.save_w(full_path, w_file)
             print("Average Return:", sum(agent.episode_durations)/n_episodes)
-            print('Complete')
-            # agent.plot_durations(show_result=True)
+            # print('Complete')
+            agent.plot_durations(show_result=True)
             plt.ioff()
             # plt.show()
             # plt.savefig(f"{agent.batch_size}_{agent.learning_rate}_{agent.num_of_action}_{agent.hidden_dim}_{agent.epsilon_decay}_{agent.discount_factor}_{agent.buffer_size}.png")  # บันทึกไฟล์ภาพ

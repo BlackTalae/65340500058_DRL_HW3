@@ -1,6 +1,6 @@
 from __future__ import annotations
 import numpy as np
-from RL_Algorithm.RL_base_function_approximation import BaseAlgorithm, ControlType
+from RL_Algorithm.RL_base_function import BaseAlgorithm
 
 
 import torch
@@ -27,7 +27,9 @@ class MC_REINFORCE_network(nn.Module):
     def __init__(self, n_observations, hidden_size, n_actions, dropout):
         super(MC_REINFORCE_network, self).__init__()
         # ========= put your code here ========= #
-        pass
+        self.fc1 = nn.Linear(n_observations, hidden_size)
+        self.dropout = nn.Dropout(p=dropout)
+        self.fc2 = nn.Linear(hidden_size, n_actions)
         # ====================================== #
 
     def forward(self, x):
@@ -41,7 +43,11 @@ class MC_REINFORCE_network(nn.Module):
             Tensor: Output tensor representing action probabilities.
         """
         # ========= put your code here ========= #
-        pass
+        x = F.relu(self.fc1(x))
+        x = self.dropout(x)
+        action_probs = F.softmax(self.fc2(x), dim=-1)
+        action_probs = torch.clamp(action_probs, min=1e-8, max=1.0)
+        return action_probs
         # ====================================== #
 
 class MC_REINFORCE(BaseAlgorithm):
@@ -78,7 +84,7 @@ class MC_REINFORCE(BaseAlgorithm):
         self.steps_done = 0
 
         self.episode_durations = []
-
+  
         # Experiment with different values and configurations to see how they affect the training process.
         # Remember to document any changes you make and analyze their impact on the agent's performance.
 
@@ -110,7 +116,15 @@ class MC_REINFORCE(BaseAlgorithm):
             Tensor: Normalized stepwise returns.
         """
         # ========= put your code here ========= #
-        pass
+        R = 0
+        returns = []
+        for r in reversed(rewards):
+            R = r + self.discount_factor * R
+            returns.insert(0, R)
+        returns = torch.tensor(returns, dtype=torch.float32).to(self.device)
+        if returns.std() > 0:
+            returns = (returns - returns.mean()) / (returns.std() + 1e-8)
+        return returns
         # ====================================== #
 
     def generate_trajectory(self, env):
@@ -132,7 +146,17 @@ class MC_REINFORCE(BaseAlgorithm):
         # Flag to indicate episode termination (boolean)
         # Step counter (int)
         # ========= put your code here ========= #
-        pass
+        state = env.reset()
+        state = torch.tensor([state[0]['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
+        state = (state - state.mean()) / (state.std() + 1e-8)
+
+        trajectory = []
+        log_prob_actions = []
+        rewards = []
+
+        done = False
+        timestep = 0
+        episode_return = 0.0
         # ====================================== #
         
         # ===== Collect trajectory through agent-environment interaction ===== #
@@ -140,29 +164,40 @@ class MC_REINFORCE(BaseAlgorithm):
             
             # Predict action from the policy network
             # ========= put your code here ========= #
-            pass
+            action_probs = self.policy_net(state)
+            dist = distributions.Categorical(action_probs)
+            action = dist.sample().view(1, -1)
+
+            log_prob = dist.log_prob(action)
             # ====================================== #
 
             # Execute action in the environment and observe next state and reward
             # ========= put your code here ========= #
-            pass
+            next_state, reward, terminated, truncated, _ = env.step(action)
+            next_state = torch.tensor([next_state['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
             # ====================================== #
 
             # Store action log probability reward and trajectory history
             # ========= put your code here ========= #
-            pass
+            log_prob_actions.append(log_prob)
+            rewards.append(reward)
+            trajectory.append((state, action.item(), reward))
             # ====================================== #
             
             # Update state
-
+            state = next_state
+            episode_return += reward
             timestep += 1
+            done = terminated or truncated
             if done:
                 self.plot_durations(timestep)
                 break
 
         # ===== Stack log_prob_actions &  stepwise_returns ===== #
         # ========= put your code here ========= #
-        pass
+        stepwise_returns = self.calculate_stepwise_returns(rewards)
+        log_prob_actions = torch.stack(log_prob_actions)
+        return episode_return, stepwise_returns, log_prob_actions, trajectory
         # ====================================== #
     
     def calculate_loss(self, stepwise_returns, log_prob_actions):
@@ -177,7 +212,7 @@ class MC_REINFORCE(BaseAlgorithm):
             Tensor: Computed loss.
         """
         # ========= put your code here ========= #
-        pass
+        return -torch.sum(log_prob_actions * stepwise_returns)
         # ====================================== #
 
     def update_policy(self, stepwise_returns, log_prob_actions):
@@ -192,7 +227,13 @@ class MC_REINFORCE(BaseAlgorithm):
             float: Loss value after the update.
         """
         # ========= put your code here ========= #
-        pass
+        loss = self.calculate_loss(stepwise_returns, log_prob_actions)
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        return loss.item()
         # ====================================== #
     
     def learn(self, env):
@@ -238,8 +279,8 @@ class MC_REINFORCE(BaseAlgorithm):
         plt.pause(0.001)  # pause a bit so that plots are updated
         if self.is_ipython:
             if not show_result:
-                display.display(plt.gcf())
-                display.clear_output(wait=True)
+                display.display(plt.gcf()) # type: ignore
+                display.clear_output(wait=True) # type: ignore
             else:
-                display.display(plt.gcf())
+                display.display(plt.gcf()) # type: ignore
     # ================================================================================== #

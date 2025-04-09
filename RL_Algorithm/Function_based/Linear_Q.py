@@ -161,7 +161,6 @@ class Linear_QN(BaseAlgorithm):
             total_reward += reward
             steps += 1
 
-            done = terminated or truncated
 
             if done:
                 self.decay_epsilon()
