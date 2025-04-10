@@ -113,11 +113,11 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # hyperparameters
     n_episodes = 5000
     param_grid = {
-        "learning_rate": [1e-4],
-        "hidden_dim": [128],
+        "learning_rate": [1e-3],
+        "hidden_dim": [32],
         "discount":[0.99],
         "eps_clip":[0.2],
-        "entropy_coeff":[0.01],
+        "entropy_coeff":[0.005],
         "n_epoch":[5]
     }
 

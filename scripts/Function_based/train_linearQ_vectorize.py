@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL.")
 parser.add_argument("--video", action="store_true", default=False, help="Record videos during training.")
 parser.add_argument("--video_length", type=int, default=200, help="Length of the recorded video (in steps).")
 parser.add_argument("--video_interval", type=int, default=2000, help="Interval between video recordings (in steps).")
-parser.add_argument("--num_envs", type=int, default=1, help="Number of environments to simulate.")
+parser.add_argument("--num_envs", type=int, default=4, help="Number of environments to simulate.")
 parser.add_argument("--task", type=str, default=None, help="Name of the task.")
 parser.add_argument("--seed", type=int, default=None, help="Seed used for the environment")
 parser.add_argument("--max_iterations", type=int, default=None, help="RL Policy training iterations.")
@@ -136,7 +136,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     # Define hyperparameter grid
     param_grid = {
-        "num_of_action":[2],
+        "num_of_action":[25],
         "learning_rate": [1e-2, 1e-3, 5e-4],
         "epsilon_decay": [0.9996],
         "discount":[0.8, 0.9, 0.95, 0.99],
@@ -170,7 +170,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             # for episode in tqdm(range(n_episodes)): # type: ignore
                 # print(agent.total_env_episodes)
                 # print(agent.epsilon)
-            agent.learn(env, 1000)
+            agent.learn(env, n_episodes)
 
             # if episode % 100 == 0: # type: ignore
             #     print(agent.epsilon)

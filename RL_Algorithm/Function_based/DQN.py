@@ -24,10 +24,10 @@ class DQN_network(nn.Module):
     def __init__(self, n_observations, hidden_size, n_actions, dropout):
         super(DQN_network, self).__init__()
         # ========= put your code here ========= #
-        self.fc1 = nn.Linear(n_observations, hidden_size)
+        self.fc1 = nn.Linear(n_observations, hidden_size//2)
         self.dropout = nn.Dropout(dropout)
-        self.fc2 = nn.Linear(hidden_size, hidden_size//2)
-        self.out = nn.Linear(hidden_size//2, n_actions)
+        self.fc2 = nn.Linear(hidden_size//2, hidden_size)
+        self.out = nn.Linear(hidden_size, n_actions)
         # ====================================== #
 
     def forward(self, x):
@@ -42,7 +42,7 @@ class DQN_network(nn.Module):
         """
         # ========= put your code here ========= #
         x = F.relu(self.fc1(x))
-        # x = self.dropout(x)
+        x = self.dropout(x)
         x = F.relu(self.fc2(x))
         return self.out(x)
         # ====================================== #
@@ -55,7 +55,7 @@ class DQN(BaseAlgorithm):
             action_range: list = [-12.0, 12.0],
             n_observations: int = 4,
             hidden_dim: int = 128,
-            dropout: float = 0.01,
+            dropout: float = 0.1,
             learning_rate: float = 0.001,
             tau: float = 0.005,
             initial_epsilon: float = 1.0,
@@ -251,6 +251,8 @@ class DQN(BaseAlgorithm):
 
         # Compute loss
         loss = self.calculate_loss(non_final_mask, non_final_next_states, state_batch, action_batch, reward_batch)
+        l2_reg = torch.norm(self.policy_net.fc1.weight, p=2) + torch.norm(self.policy_net.fc2.weight, p=2)
+        loss += 1e-4 * l2_reg
 
         # Perform gradient descent step
         # ========= put your code here ========= #

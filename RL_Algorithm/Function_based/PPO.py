@@ -180,7 +180,7 @@ class Actor_Critic_PPO(BaseAlgorithm):
 
         plt.ion()
 
-    def select_action(self, state, noise=0.0):
+    def select_action(self, state, noise=1.0):
         """
         Selects an action based on the current policy with optional exploration noise.
         
@@ -290,7 +290,7 @@ class Actor_Critic_PPO(BaseAlgorithm):
         return actor_loss, critic_loss, entropy.mean()
 
 
-    def update_policy(self, n_epochs, batch_size=256):
+    def update_policy(self, n_epochs, batch_size=4):
         """
         Update the policy using the calculated loss.
 
@@ -353,7 +353,7 @@ class Actor_Critic_PPO(BaseAlgorithm):
             target_param.data.copy_(tau * param.data + (1.0 - tau) * target_param.data)
         # ====================================== #
 
-    def learn(self, env, max_steps, num_agents, noise_scale=0.1, noise_decay=0.99):
+    def learn(self, env, max_steps, num_agents, noise_scale=1.0, noise_decay=0.99):
         """
         Train the agent on a single step.
 

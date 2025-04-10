@@ -169,12 +169,18 @@ class BaseAlgorithm():
             torch.Tensor: Scaled action tensor.
         """
         # ========= put your code here ========= #
-
+        # Unpack the minimum and maximum values of the action range
         action_min, action_max = self.action_range
+
+        # Scale the discrete action index (0 to num_of_action-1) to a continuous value within [action_min, action_max]
         scaled = action_min + (action / (self.num_of_action - 1)) * (action_max - action_min)
+
+        # Check if the scaled value is already a torch.Tensor
         if isinstance(scaled, torch.Tensor):
+            # If yes, detach it from any computation graph and convert to float32
             return scaled.clone().detach().to(dtype=torch.float32)
         else:
+            # Otherwise, convert it into a torch.Tensor of type float32
             return torch.tensor(scaled, dtype=torch.float32)
         # ====================================== #
     
@@ -183,6 +189,8 @@ class BaseAlgorithm():
         Decay epsilon value to reduce exploration over time.
         """
         # ========= put your code here ========= #
+        # Decay the exploration rate (epsilon) by multiplying with epsilon_decay,
+        # but ensure it doesn't go below the minimum value (final_epsilon)
         self.epsilon = max(self.final_epsilon, self.epsilon * self.epsilon_decay)
         # ====================================== #
 

@@ -43,7 +43,6 @@ class Linear_QN(BaseAlgorithm):
         self.lr = learning_rate
         self.episode_durations = []
 
-        # เปลี่ยนจาก numpy → tensor
         self.w = torch.zeros((n_observations, num_of_action), dtype=torch.float32, device=self.device)
 
         # set up matplotlib
@@ -149,7 +148,6 @@ class Linear_QN(BaseAlgorithm):
         while not done or steps < max_steps:
             action = self.select_action(obs_list)
             scaled_action = self.scale_action(action).view(1, -1)
-            print(scaled_action)
             next_obs, reward, terminated, truncated, _  = env.step(scaled_action)
 
             next_obs_list = torch.tensor([next_obs['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
