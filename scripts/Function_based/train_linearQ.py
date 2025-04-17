@@ -73,6 +73,12 @@ from isaaclab_tasks.utils.hydra import hydra_task_config
 # Import extensions to set up environment tasks
 import CartPole.tasks  # noqa: F401
 
+seed = 42
+random.seed(seed)
+np.random.seed(seed)
+torch.manual_seed(seed)
+os.environ['PYTHONHASHSEED'] = str(seed)
+
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
 torch.backends.cudnn.deterministic = False
@@ -102,18 +108,18 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # ========================= Can be modified ========================== #
 
     # hyperparameters
-    num_of_action = 13
-    action_range = [-12.0, 12.0]
-    learning_rate = 0.0001
-    hidden_dim = 512
-    n_episodes = 20000
+    n_episodes = 5000
     initial_epsilon = 1.0
-    epsilon_decay = 0.999
-    final_epsilon = 0.1
-    discount = 0.99
-    buffer_size = 10000
-    batch_size = 128
-    target_update_freq = 1000
+    final_epsilon = 0.001
+
+    # Define hyperparameter grid
+    param_grid = {
+        "num_of_action":[7],
+        "action_range":[25],
+        "learning_rate": [0.01],
+        "epsilon_decay": [0.0003],
+        "discount":[0.95],
+    }
 
     # set up matplotlib
     is_ipython = 'inline' in matplotlib.get_backend()
@@ -134,14 +140,6 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     task_name = str(args_cli.task).split('-')[0]  # Stabilize, SwingUp
     Algorithm_name = "LinearQ"
 
-    # Define hyperparameter grid
-    param_grid = {
-        "num_of_action":[13],
-        "learning_rate": [1e-2, 1e-3, 5e-4],
-        "epsilon_decay": [0.9999],
-        "discount":[0.8, 0.9, 0.95, 0.99],
-    }
-
     # Create all combinations
     grid = list(itertools.product(*param_grid.values()))
     param_names = list(param_grid.keys())
@@ -153,7 +151,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         agent = Linear_QN(
             device=device,
             num_of_action=config["num_of_action"],
-            action_range=action_range,
+            action_range=[-config["action_range"],config["action_range"]],
             learning_rate=config["learning_rate"],
             initial_epsilon=initial_epsilon,
             epsilon_decay=config["epsilon_decay"],

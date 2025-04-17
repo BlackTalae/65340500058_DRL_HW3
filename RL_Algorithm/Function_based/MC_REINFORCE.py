@@ -29,7 +29,8 @@ class MC_REINFORCE_network(nn.Module):
         # ========= put your code here ========= #
         self.fc1 = nn.Linear(n_observations, hidden_size)
         self.dropout = nn.Dropout(p=dropout)
-        self.fc2 = nn.Linear(hidden_size, n_actions)
+        self.fc2 = nn.Linear(hidden_size, hidden_size)
+        self.fc3 = nn.Linear(hidden_size, n_actions)
         # ====================================== #
 
     def forward(self, x):
@@ -45,7 +46,8 @@ class MC_REINFORCE_network(nn.Module):
         # ========= put your code here ========= #
         x = F.relu(self.fc1(x))
         x = self.dropout(x)
-        action_probs = F.softmax(self.fc2(x), dim=-1)
+        x = F.relu(self.fc2(x))
+        action_probs = F.softmax(self.fc3(x), dim=-1)
         action_probs = torch.clamp(action_probs, min=1e-8, max=1.0)
         return action_probs
         # ====================================== #
@@ -169,11 +171,14 @@ class MC_REINFORCE(BaseAlgorithm):
             action = dist.sample().view(1, -1)
 
             log_prob = dist.log_prob(action)
+            action = self.scale_action(action)
+            # print(action)
             # ====================================== #
 
             # Execute action in the environment and observe next state and reward
             # ========= put your code here ========= #
             next_state, reward, terminated, truncated, _ = env.step(action)
+            # print(reward)
             next_state = torch.tensor([next_state['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
             # ====================================== #
 
@@ -250,7 +255,7 @@ class MC_REINFORCE(BaseAlgorithm):
         self.policy_net.train()
         episode_return, stepwise_returns, log_prob_actions, trajectory = self.generate_trajectory(env)
         loss = self.update_policy(stepwise_returns, log_prob_actions)
-        return episode_return, loss, trajectory
+        # return episode_return, loss, trajectory
         # ====================================== #
 
 

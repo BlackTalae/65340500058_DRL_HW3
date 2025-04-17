@@ -191,7 +191,7 @@ class BaseAlgorithm():
         # ========= put your code here ========= #
         # Decay the exploration rate (epsilon) by multiplying with epsilon_decay,
         # but ensure it doesn't go below the minimum value (final_epsilon)
-        self.epsilon = max(self.final_epsilon, self.epsilon * self.epsilon_decay)
+        self.epsilon = max(self.final_epsilon, self.epsilon - self.epsilon_decay)
         # ====================================== #
 
     def save_w(self, path, filename):

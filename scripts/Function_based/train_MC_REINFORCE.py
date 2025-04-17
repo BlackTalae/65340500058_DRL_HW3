@@ -112,10 +112,10 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     # hyperparameters
     num_of_action = 13
-    action_range = [-20.0, 20.0]
+    action_range = [-12.0, 12.0]
     learning_rate = 0.0001
     hidden_dim = 512
-    n_episodes = 5000
+    n_episodes = 2000
     initial_epsilon = 1.0
     epsilon_decay = 0.999
     final_epsilon = 0.1
@@ -145,9 +145,9 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     # Define hyperparameter grid
     param_grid = {
-        "learning_rate": [1e-3],
+        "learning_rate": [1e-4],
         "hidden_dim": [128],
-        "discount":[0.9],
+        "discount":[0.99],
         "dropout":[0.0]
     }
 
@@ -164,7 +164,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             learning_rate=config["learning_rate"],
             hidden_dim=config["hidden_dim"],
             discount_factor=config["discount"],
-            dropout=config["dropout"]
+            dropout=config["dropout"],
+            num_of_action=num_of_action
         )
 
         # reset environment

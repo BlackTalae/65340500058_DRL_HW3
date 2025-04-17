@@ -118,6 +118,7 @@ class Linear_QN(BaseAlgorithm):
         if obs.dim() == 1:
             obs = obs.view(1, -1)  # make it [1, obs_dim]
         q_values = obs @ self.w  
+        # print(q_values)
 
         if a is None:
             return q_values.squeeze(0)
@@ -149,6 +150,7 @@ class Linear_QN(BaseAlgorithm):
             action = self.select_action(obs_list)
             scaled_action = self.scale_action(action).view(1, -1)
             next_obs, reward, terminated, truncated, _  = env.step(scaled_action)
+            print(reward)
 
             next_obs_list = torch.tensor([next_obs['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
 
