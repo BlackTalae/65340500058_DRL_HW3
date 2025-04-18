@@ -1,1 +1,0 @@
-{"actor_loss": -0.007358444854617119, "critic_loss": 0.00035160136758349836, "_timestamp": 1744866895, "_runtime": 204, "_step": 10049, "num_step": 6, "reward": 0.020264542661607265, "avg_step": 7.32, "avg_reward": 0.03322184599936009, "_wandb": {"runtime": 205}}
