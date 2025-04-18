@@ -1,0 +1,161 @@
+2025-04-17 23:57:56,222 INFO    MainThread:84700 [internal.py:wandb_internal():90] W&B internal server running at pid: 84700, started at: 2025-04-17 23:57:56.222788
+2025-04-17 23:57:56,224 INFO    WriterThread:84700 [datastore.py:open_for_write():75] open: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/run-btvsgkqd.wandb
+2025-04-17 23:57:56,225 DEBUG   SenderThread:84700 [sender.py:send():236] send: header
+2025-04-17 23:57:56,225 DEBUG   SenderThread:84700 [sender.py:send():236] send: run
+2025-04-17 23:57:56,642 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: check_version
+2025-04-17 23:57:56,645 INFO    SenderThread:84700 [dir_watcher.py:__init__():216] watching files in: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files
+2025-04-17 23:57:56,645 INFO    SenderThread:84700 [sender.py:_start_run_threads():815] run started: btvsgkqd with start time 1744909075
+2025-04-17 23:57:56,645 DEBUG   SenderThread:84700 [sender.py:send():236] send: summary
+2025-04-17 23:57:56,645 INFO    SenderThread:84700 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-17 23:57:56,646 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: check_version
+2025-04-17 23:57:56,852 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: run_start
+2025-04-17 23:57:56,859 DEBUG   HandlerThread:84700 [meta.py:__init__():35] meta init
+2025-04-17 23:57:56,859 DEBUG   HandlerThread:84700 [meta.py:__init__():49] meta init done
+2025-04-17 23:57:56,859 DEBUG   HandlerThread:84700 [meta.py:probe():209] probe
+2025-04-17 23:57:56,866 DEBUG   HandlerThread:84700 [meta.py:_setup_git():199] setup git
+2025-04-17 23:57:56,871 DEBUG   HandlerThread:84700 [meta.py:_setup_git():206] setup git done
+2025-04-17 23:57:56,871 DEBUG   HandlerThread:84700 [meta.py:_save_pip():53] save pip
+2025-04-17 23:57:56,871 DEBUG   HandlerThread:84700 [meta.py:_save_pip():67] save pip done
+2025-04-17 23:57:56,871 DEBUG   HandlerThread:84700 [meta.py:_save_conda():74] save conda
+2025-04-17 23:57:57,646 INFO    Thread-7  :84700 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/conda-environment.yaml
+2025-04-17 23:57:57,646 INFO    Thread-7  :84700 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/wandb-summary.json
+2025-04-17 23:57:57,646 INFO    Thread-7  :84700 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/requirements.txt
+2025-04-17 23:58:02,646 INFO    Thread-7  :84700 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/output.log
+2025-04-17 23:58:02,921 DEBUG   HandlerThread:84700 [meta.py:_save_conda():84] save conda done
+2025-04-17 23:58:02,921 DEBUG   HandlerThread:84700 [meta.py:probe():247] probe done
+2025-04-17 23:58:02,956 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: stop_status
+2025-04-17 23:58:02,956 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: stop_status
+2025-04-17 23:58:03,357 DEBUG   SenderThread:84700 [sender.py:send():236] send: telemetry
+2025-04-17 23:58:03,357 DEBUG   SenderThread:84700 [sender.py:send():236] send: telemetry
+2025-04-17 23:58:03,357 DEBUG   SenderThread:84700 [sender.py:send():236] send: files
+2025-04-17 23:58:03,357 INFO    SenderThread:84700 [sender.py:_save_file():952] saving file wandb-metadata.json with policy now
+2025-04-17 23:58:03,647 INFO    Thread-7  :84700 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/conda-environment.yaml
+2025-04-17 23:58:03,647 INFO    Thread-7  :84700 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/wandb-metadata.json
+2025-04-17 23:58:04,362 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:04,362 DEBUG   SenderThread:84700 [sender.py:send():236] send: exit
+2025-04-17 23:58:04,362 INFO    SenderThread:84700 [sender.py:send_exit():372] handling exit code: 1
+2025-04-17 23:58:04,362 INFO    SenderThread:84700 [sender.py:send_exit():374] handling runtime: 7
+2025-04-17 23:58:04,362 INFO    SenderThread:84700 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-17 23:58:04,362 INFO    SenderThread:84700 [sender.py:send_exit():380] send defer
+2025-04-17 23:58:04,362 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:04,363 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:04,363 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 0
+2025-04-17 23:58:04,363 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:04,363 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 0
+2025-04-17 23:58:04,363 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 1
+2025-04-17 23:58:04,363 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:04,363 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 1
+2025-04-17 23:58:04,412 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:04,412 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 1
+2025-04-17 23:58:04,412 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 2
+2025-04-17 23:58:04,412 DEBUG   SenderThread:84700 [sender.py:send():236] send: stats
+2025-04-17 23:58:04,412 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:04,412 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 2
+2025-04-17 23:58:04,412 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:04,412 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 2
+2025-04-17 23:58:04,412 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 3
+2025-04-17 23:58:04,412 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:04,412 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 3
+2025-04-17 23:58:04,413 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:04,413 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 3
+2025-04-17 23:58:04,413 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 4
+2025-04-17 23:58:04,413 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:04,413 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 4
+2025-04-17 23:58:04,413 DEBUG   SenderThread:84700 [sender.py:send():236] send: summary
+2025-04-17 23:58:04,413 INFO    SenderThread:84700 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-17 23:58:04,413 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:04,413 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 4
+2025-04-17 23:58:04,413 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 5
+2025-04-17 23:58:04,413 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:04,413 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 5
+2025-04-17 23:58:04,413 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:04,413 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 5
+2025-04-17 23:58:04,463 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:04,647 INFO    Thread-7  :84700 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/wandb-summary.json
+2025-04-17 23:58:04,647 INFO    Thread-7  :84700 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/output.log
+2025-04-17 23:58:05,112 INFO    Thread-11 :84700 [upload_job.py:push():138] Uploaded file /tmp/tmpco92qbrfwandb/w37nniwb-wandb-metadata.json
+2025-04-17 23:58:09,564 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:09,837 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 6
+2025-04-17 23:58:09,838 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:09,838 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:09,838 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:09,838 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 6
+2025-04-17 23:58:09,838 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:09,838 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 6
+2025-04-17 23:58:09,838 INFO    SenderThread:84700 [dir_watcher.py:finish():353] shutting down directory watcher
+2025-04-17 23:58:09,939 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/config.yaml
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [dir_watcher.py:finish():383] scan: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/wandb-summary.json wandb-summary.json
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/conda-environment.yaml conda-environment.yaml
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/config.yaml config.yaml
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/requirements.txt requirements.txt
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/wandb-metadata.json wandb-metadata.json
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/output.log output.log
+2025-04-17 23:58:10,649 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 7
+2025-04-17 23:58:10,649 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:10,650 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:10,650 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 7
+2025-04-17 23:58:10,650 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:10,650 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 7
+2025-04-17 23:58:10,650 INFO    SenderThread:84700 [file_pusher.py:finish():171] shutting down file pusher
+2025-04-17 23:58:10,751 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:10,751 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:10,852 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:10,852 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:10,953 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:10,953 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,054 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,054 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,155 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,155 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,256 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,256 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,357 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,357 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,458 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,459 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,560 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,560 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,662 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,662 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,690 INFO    Thread-12 :84700 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/wandb-summary.json
+2025-04-17 23:58:11,691 INFO    Thread-14 :84700 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/config.yaml
+2025-04-17 23:58:11,698 INFO    Thread-16 :84700 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/output.log
+2025-04-17 23:58:11,703 INFO    Thread-15 :84700 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/requirements.txt
+2025-04-17 23:58:11,724 INFO    Thread-13 :84700 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/files/conda-environment.yaml
+2025-04-17 23:58:11,763 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,764 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,865 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:11,865 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:11,925 INFO    Thread-6 (_thread_body):84700 [sender.py:transition_state():393] send defer: 8
+2025-04-17 23:58:11,925 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:11,925 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 8
+2025-04-17 23:58:11,925 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:11,925 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 8
+2025-04-17 23:58:11,966 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:12,295 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 9
+2025-04-17 23:58:12,295 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:12,296 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:12,296 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 9
+2025-04-17 23:58:12,296 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:12,296 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 9
+2025-04-17 23:58:12,296 INFO    SenderThread:84700 [sender.py:transition_state():393] send defer: 10
+2025-04-17 23:58:12,296 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 23:58:12,296 DEBUG   SenderThread:84700 [sender.py:send():236] send: final
+2025-04-17 23:58:12,296 INFO    HandlerThread:84700 [handler.py:handle_request_defer():163] handle defer: 10
+2025-04-17 23:58:12,297 DEBUG   SenderThread:84700 [sender.py:send():236] send: footer
+2025-04-17 23:58:12,297 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: defer
+2025-04-17 23:58:12,297 INFO    SenderThread:84700 [sender.py:send_request_defer():389] handle sender defer: 10
+2025-04-17 23:58:12,397 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 23:58:12,397 DEBUG   SenderThread:84700 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 23:58:12,397 INFO    SenderThread:84700 [file_pusher.py:join():176] waiting for file pusher
+2025-04-17 23:58:13,262 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: sampled_history
+2025-04-17 23:58:13,263 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: get_summary
+2025-04-17 23:58:13,263 DEBUG   HandlerThread:84700 [handler.py:handle_request():140] handle_request: shutdown
+2025-04-17 23:58:13,263 INFO    HandlerThread:84700 [handler.py:finish():806] shutting down handler
+2025-04-17 23:58:13,297 INFO    WriterThread:84700 [datastore.py:close():279] close: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_235755-btvsgkqd/run-btvsgkqd.wandb
+2025-04-17 23:58:14,161 INFO    SenderThread:84700 [sender.py:finish():1114] shutting down sender
+2025-04-17 23:58:14,161 INFO    SenderThread:84700 [file_pusher.py:finish():171] shutting down file pusher
+2025-04-17 23:58:14,161 INFO    SenderThread:84700 [file_pusher.py:join():176] waiting for file pusher
+2025-04-17 23:58:14,242 INFO    MainThread:84700 [internal.py:handle_exit():80] Internal process exited

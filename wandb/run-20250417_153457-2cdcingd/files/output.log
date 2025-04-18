@@ -1,0 +1,20 @@
+device:  cuda
+===== Training Config 1/1: {'num_of_action': 7, 'action_range': 20, 'learning_rate': 0.001, 'epsilon_decay': 0.0003, 'discount': 0.01} =====
+<RL_Algorithm.Function_based.Linear_Q.Linear_QN object at 0x77b97eb220e0>
+0.86
+0.9997
+  0%|                                                  | 0/5000 [00:00<?, ?it/s]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/talae/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 101, in hydra_main
+    func(env_cfg, agent_cfg, *args, **kwargs)
+  File "/home/talae/DRL_HW3/DRL_HW3/scripts/Function_based/train_linearQ.py", line 195, in main
+    agent.save_w(full_path, w_file)
+  File "/home/talae/DRL_HW3/DRL_HW3/RL_Algorithm/RL_base_function.py", line 204, in save_w
+    np.save(file_path, self.w)
+  File "/home/talae/miniconda3/envs/env_isaaclab/lib/python3.10/site-packages/numpy/lib/npyio.py", line 545, in save
+    arr = np.asanyarray(arr)
+  File "/home/talae/miniconda3/envs/env_isaaclab/lib/python3.10/site-packages/torch/_tensor.py", line 1149, in __array__
+    return self.numpy()
+TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

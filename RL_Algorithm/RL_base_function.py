@@ -2,8 +2,6 @@ import numpy as np
 from collections import defaultdict, namedtuple, deque
 import random
 from enum import Enum
-import os
-import json
 import torch
 import torch.nn as nn
 
@@ -40,15 +38,8 @@ class ReplayBuffer:
             next_state (Tensor): The next state resulting from the action.
             done (bool): Whether the episode has terminated.
         """
-        is_batch = (
-            isinstance(done, torch.Tensor) and done.ndim >= 1 and done.shape[0] > 1
-        )
 
-        if is_batch:
-            for s, a, r, ns, d in zip(state, action, reward, next_state, done):
-                self.memory.append(Transition(s, a, ns, r, d))
-        else:
-            self.memory.append(Transition(state, action, next_state, reward, done))
+        self.memory.append(Transition(state, action, next_state, reward, done))
 
     def sample(self):
         """
@@ -192,28 +183,6 @@ class BaseAlgorithm():
         # Decay the exploration rate (epsilon) by multiplying with epsilon_decay,
         # but ensure it doesn't go below the minimum value (final_epsilon)
         self.epsilon = max(self.final_epsilon, self.epsilon - self.epsilon_decay)
-        # ====================================== #
-
-    def save_w(self, path, filename):
-        """
-        Save weight parameters.
-        """
-        # ========= put your code here ========= #
-        os.makedirs(path, exist_ok=True)
-        file_path = os.path.join(path, filename)
-        np.save(file_path, self.w)
-        # ====================================== #
-            
-    def load_w(self, path, filename):
-        """
-        Load weight parameters.
-        """
-        # ========= put your code here ========= #
-        file_path = os.path.join(path, filename)
-        if os.path.exists(file_path):
-            self.w = np.load(file_path)
-        else:
-            raise FileNotFoundError(f"Weight file not found: {file_path}")
         # ====================================== #
 
 

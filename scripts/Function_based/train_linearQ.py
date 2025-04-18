@@ -11,7 +11,7 @@ from isaaclab.app import AppLauncher
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from RL_Algorithm.Function_based.Linear_Q import Linear_QN
-
+import wandb
 from tqdm import tqdm
 
 # add argparse arguments
@@ -57,7 +57,6 @@ import torch.nn.functional as F
 import numpy as np
 import itertools
 
-HYDRA_FULL_ERROR=1
 
 from isaaclab.envs import (
     DirectMARLEnv,
@@ -72,12 +71,6 @@ from isaaclab_tasks.utils.hydra import hydra_task_config
 
 # Import extensions to set up environment tasks
 import CartPole.tasks  # noqa: F401
-
-seed = 42
-random.seed(seed)
-np.random.seed(seed)
-torch.manual_seed(seed)
-os.environ['PYTHONHASHSEED'] = str(seed)
 
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
@@ -115,10 +108,10 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # Define hyperparameter grid
     param_grid = {
         "num_of_action":[7],
-        "action_range":[25],
+        "action_range":[20.0],
         "learning_rate": [0.01],
-        "epsilon_decay": [0.0003],
-        "discount":[0.95],
+        "epsilon_decay": [0.0003, 0.0006, 0.001],
+        "discount":[0.01],
     }
 
     # set up matplotlib
@@ -145,6 +138,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     param_names = list(param_grid.keys())
 
     for config_idx, values in enumerate(grid):
+
         config = dict(zip(param_names, values))
         print(f"\n===== Training Config {config_idx+1}/{len(grid)}: {config} =====")
 
@@ -159,29 +153,50 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             discount_factor=config["discount"],
         )
 
+        Experiment = "Epsilon Decay "+str(config["epsilon_decay"])
+
+        # Initialize Weights and Biases (wandb) for tracking and logging metrics during training
+        wandb.init( # type: ignore
+            project='DRL_HW3',  # The name of the project in wandb
+            name=Algorithm_name+"_"+Experiment  # The name of the current run
+        )
+        
         # reset environment
         obs, _ = env.reset()
         timestep = 0
+        sum_step = 0
+        sum_reward = 0.0
+  
         # simulate environment
         while simulation_app.is_running():
+
             for episode in tqdm(range(n_episodes)): # type: ignore
                 # print(agent.total_env_episodes)
-                agent.learn(env, 1000)
+                step, reward = agent.learn(env, 1000)
 
-            # if episode % 100 == 0: # type: ignore
-            #     print(agent.epsilon)
+                sum_step += step
+                sum_reward += reward
+                wandb.log({ # type: ignore
+                    'num_step': step, # Steps taken in the current episode
+                    'reward': reward
+                })                
+                if episode % 100 == 0: # type: ignore
+                    print(sum_step / 100.0)
+                    
+                    wandb.log({ # type: ignore
+                        'avg_step': sum_step / 100.0,
+                        'avg_reward': sum_reward / 100.0
+                    })
+                    sum_step = 0.0
+                    sum_reward = 0.0
 
-            #     # Save Q-Learning agent
-            #     w_file = f"{Algorithm_name}_{episode}_{num_of_action}_{action_range[1]}.json" # type: ignore
-            #     full_path = os.path.join(f"w/{task_name}", Algorithm_name)
-            #     agent.save_w(full_path, w_file)
-            print("Average Return:", sum(agent.episode_durations)/n_episodes)
+                    # Save Q-Learning agent
+                    w_file = f"{Algorithm_name}_{episode}_{agent.num_of_action}_{agent.action_range[1]}_{agent.discount_factor}_{agent.lr}_{agent.epsilon_decay}.json" # type: ignore
+                    full_path = os.path.join(f"w/{task_name}", Algorithm_name)
+                    agent.save_w(full_path, w_file)
+
             print('Complete')
-            agent.plot_durations(show_result=True)
-            plt.ioff()
-            # plt.show()
-            # plt.savefig(f"{agent.batch_size}_{agent.learning_rate}_{agent.num_of_action}_{agent.hidden_dim}_{agent.epsilon_decay}_{agent.discount_factor}_{agent.buffer_size}_{agent.target_update_freq}.png")  # บันทึกไฟล์ภาพ
-            plt.close()                # ปิด plot เพื่อไม่ให้แสดง
+
             if args_cli.video:
                 timestep += 1
                 # Exit the play loop after recording one video
@@ -189,6 +204,9 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                     break
 
             break
+        
+        # Finish the wandb run and save the logged metrics
+        wandb.finish() # type: ignore
     # ==================================================================== #
 
     # close the simulator

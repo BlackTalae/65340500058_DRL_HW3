@@ -1,0 +1,11 @@
+
+tensor(3.9149, device='cuda:0', grad_fn=<NegBackward0>)
+  0%|                                                                 | 0/5000 [00:00<?, ?it/s]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/talae/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 101, in hydra_main
+    func(env_cfg, agent_cfg, *args, **kwargs)
+  File "/home/talae/DRL_HW3/DRL_HW3/scripts/Function_based/train_A2C_discrete.py", line 179, in main
+    sum_step += step
+UnboundLocalError: local variable 'sum_step' referenced before assignment
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

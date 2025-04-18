@@ -1,0 +1,21 @@
+
+1
+  0%|                                                                 | 0/5000 [00:00<?, ?it/s]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/talae/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 101, in hydra_main
+    func(env_cfg, agent_cfg, *args, **kwargs)
+  File "/home/talae/DRL_HW3/DRL_HW3/scripts/Function_based/train_A2C_discrete.py", line 178, in main
+    step, reward = agent.learn(env, max_steps=1000, num_agents=1)
+  File "/home/talae/DRL_HW3/DRL_HW3/RL_Algorithm/Function_based/A2C_discrete.py", line 299, in learn
+    actor_loss, critic_loss = self.update_policy(state_tensor, action, reward, next_state_tensor, done)
+  File "/home/talae/DRL_HW3/DRL_HW3/RL_Algorithm/Function_based/A2C_discrete.py", line 235, in update_policy
+    actor_loss, critic_loss = self.calculate_loss(state, action, reward, next_state, done)
+  File "/home/talae/DRL_HW3/DRL_HW3/RL_Algorithm/Function_based/A2C_discrete.py", line 216, in calculate_loss
+    log_probs = dist.log_prob(action)
+  File "/home/talae/miniconda3/envs/env_isaaclab/lib/python3.10/site-packages/torch/distributions/categorical.py", line 139, in log_prob
+    self._validate_sample(value)
+  File "/home/talae/miniconda3/envs/env_isaaclab/lib/python3.10/site-packages/torch/distributions/distribution.py", line 289, in _validate_sample
+    raise ValueError("The value argument to log_prob must be a Tensor")
+ValueError: The value argument to log_prob must be a Tensor
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

@@ -4,6 +4,8 @@ import torch
 from RL_Algorithm.RL_base_function import BaseAlgorithm
 import matplotlib
 import matplotlib.pyplot as plt
+import os
+import json
 
 class Linear_QN(BaseAlgorithm):
     def __init__(
@@ -40,17 +42,11 @@ class Linear_QN(BaseAlgorithm):
         )
 
         self.device = device
-        self.lr = learning_rate
         self.episode_durations = []
 
+        # Initialize the weight matrix for linear Q-value approximation.
+        # Shape: [state_dim, num_actions]
         self.w = torch.zeros((n_observations, num_of_action), dtype=torch.float32, device=self.device)
-
-        # set up matplotlib
-        self.is_ipython = 'inline' in matplotlib.get_backend()
-        if self.is_ipython:
-            from IPython import display
-
-        plt.ion()
         
     def update(
         self,
@@ -77,6 +73,7 @@ class Linear_QN(BaseAlgorithm):
         """
         Q-learning with linear function approximation.
         """
+        # Convert observations to tensor and move to appropriate device
         phi_s = obs.clone().detach().to(self.device)  # current features
         phi_next = next_obs.clone().detach().to(self.device) if not terminated else torch.zeros_like(phi_s)
 
@@ -84,13 +81,14 @@ class Linear_QN(BaseAlgorithm):
         current_q = self.q(phi_s, a=action)
         next_q = torch.max(self.q(phi_next)).item() if not terminated else 0.0
 
+        # Calculate TD target and TD error
         td_target = reward + self.discount_factor * next_q
         td_error = td_target - current_q.item()
 
-        # Gradient update
+        # Apply gradient update to the weight vector for the taken action
         self.w[:, action] += self.lr * td_error * phi_s
 
-        # Track training error
+        # Log TD error for analysis
         self.training_error.append(td_error)
 
         # ====================================== #
@@ -107,23 +105,28 @@ class Linear_QN(BaseAlgorithm):
         """
         # ========= put your code here ========= #
         state_tensor = state.to(self.device)
+
+        # Explore: with probability epsilon, select a random action
         if torch.rand(1).item() < self.epsilon:
             return torch.randint(0, self.num_of_action, (1,)).item()
         else:
+            # Exploit: choose the action with the highest Q-value
             q_values = self.q(state_tensor)
             return torch.argmax(q_values).item()
         # ====================================== #
 
     def q(self, obs, a=None):
+        # Ensure obs has batch dimension
         if obs.dim() == 1:
             obs = obs.view(1, -1)  # make it [1, obs_dim]
+
+        # Compute linear Q-values: Q(s) = obs @ w
         q_values = obs @ self.w  
-        # print(q_values)
 
         if a is None:
-            return q_values.squeeze(0)
+            return q_values.squeeze(0) # Return Q-values for all actions
         else:
-            return q_values[0, a]
+            return q_values[0, a] # Return Q-value for specific action
 
     def learn(self, env, max_steps):
         """
@@ -140,65 +143,85 @@ class Linear_QN(BaseAlgorithm):
         # Flag to indicate episode termination (boolean)
         # Step counter (int)
         # ========= put your code here ========= #
-        obs = env.reset()
-        obs_list = torch.tensor([obs[0]['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
+
+        # Reset environment and initialize counters
+        obs, _ = env.reset()
         total_reward = 0.0
         done = False
         steps = 0
 
+        # Run until episode ends or max_steps is reached
         while not done or steps < max_steps:
-            action = self.select_action(obs_list)
-            scaled_action = self.scale_action(action).view(1, -1)
-            next_obs, reward, terminated, truncated, _  = env.step(scaled_action)
-            print(reward)
 
+            # Extract state vector (shape: [4]) from observation dictionary
+            obs_list = torch.tensor([obs['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
+            
+            # Choose action based on current policy
+            action = self.select_action(obs_list)
+
+            # Scale the discrete action to match environment's action space
+            scaled_action = self.scale_action(action).view(1, -1)
+
+            # Take an action in the environment
+            next_obs, reward, terminated, truncated, _  = env.step(scaled_action)
+
+            # Extract next state vector
             next_obs_list = torch.tensor([next_obs['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
 
+            # Determine whether the episode is over
             done = terminated or truncated
+
+            # Update weight with new experience
             self.update(obs_list, action, reward, next_obs_list, done)
 
+            # Accumulate reward and move to next state
             obs = next_obs
             total_reward += reward
             steps += 1
 
-
+            # If episode ends, decay epsilon and return stats
             if done:
                 self.decay_epsilon()
-                # print("Steps:", steps)
-                # print(self.epsilon)
-                self.plot_durations(steps)
-                break
-        
-            
-    # Consider modifying this function to visualize other aspects of the training process.
-    # ================================================================================== #
-    def plot_durations(self, timestep=None, show_result=False):
-        if timestep is not None:
-            self.episode_durations.append(timestep)
+                return steps, total_reward
 
-        plt.figure(1)
-        durations_t = torch.tensor(self.episode_durations, dtype=torch.float)
-        if show_result:
-            plt.title('Result')
+    def save_w(self, path, filename):
+        """
+        Save weight parameters.
+        """
+        # ========= put your code here ========= #
+        os.makedirs(path, exist_ok=True)
+        file_path = os.path.join(path, filename)
+
+        if isinstance(self.w, torch.Tensor):
+            weights_list = self.w.detach().cpu().numpy().tolist()
+        elif isinstance(self.w, np.ndarray):
+            weights_list = self.w.tolist()
         else:
-            plt.clf()
-            plt.title('Training...')
-        plt.xlabel('Episode')
-        plt.ylabel('Duration')
-        plt.plot(durations_t.numpy())
-        # Take 100 episode averages and plot them too
-        if len(durations_t) >= 100:
-            means = durations_t.unfold(0, 100, 1).mean(1).view(-1)
-            means = torch.cat((torch.zeros(99), means))
-            plt.plot(means.numpy())
+            weights_list = self.w  # already list?
 
-        plt.pause(0.001)  # pause a bit so that plots are updated
-        if self.is_ipython:
-            if not show_result:
-                display.display(plt.gcf()) # type: ignore
-                display.clear_output(wait=True) # type: ignore
-            else:
-                display.display(plt.gcf()) # type: ignore
-    # ================================================================================== #
+        # ถ้า self.w เป็น torch.Tensor บน GPU → ต้อง .cpu() ด้วย
+        weights_list = self.w.detach().cpu().tolist()
 
-    
+        with open(file_path, 'w') as f:
+            json.dump(weights_list, f)
+
+        print(f"[INFO] Saved weights to {file_path}")
+        # ====================================== #
+            
+    def load_w(self, path, filename):
+        """
+        Load weight parameters.
+        """
+        # ========= put your code here ========= #
+        file_path = os.path.join(path, filename)
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as f:
+                weights_list = json.load(f)
+
+            # Convert to tensor on the correct device
+            self.w = torch.tensor(weights_list, dtype=torch.float32, device="cuda" if torch.cuda.is_available() else "cpu")
+
+            print(f"[INFO] Loaded weights from {file_path}")
+        else:
+            raise FileNotFoundError(f"[ERROR] Weight file not found: {file_path}")
+        # ====================================== #

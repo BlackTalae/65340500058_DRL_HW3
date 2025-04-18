@@ -1,0 +1,24 @@
+0.17
+[INFO] Saved weights to w/Stabilize/DQN/DQN_0_7_20.0_0.01_0.001_0.0003_128_1000_32_0.005.json
+  0%|                                                                | 0/5000 [00:00<?, ?it/s]/home/talae/DRL_HW3/DRL_HW3/RL_Algorithm/Function_based/DQN.py:333: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  state = torch.tensor(obs_list, dtype=torch.float32, device=self.device).unsqueeze(0)
+/home/talae/DRL_HW3/DRL_HW3/RL_Algorithm/Function_based/DQN.py:359: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  next_state = torch.tensor(next_obs_list, dtype=torch.float32, device=self.device)
+
+
+
+  2%|█                                                      | 93/5000 [00:07<08:08, 10.04it/s]
+24.18
+
+
+
+
+  4%|██▏                                                   | 201/5000 [00:15<06:53, 11.60it/s]
+24.93
+
+
+
+  6%|██▉                                                   | 277/5000 [00:21<06:50, 11.52it/s]
+25.67
+
+

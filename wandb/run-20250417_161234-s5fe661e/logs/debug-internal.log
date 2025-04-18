@@ -1,0 +1,154 @@
+2025-04-17 16:12:34,324 INFO    MainThread:42238 [internal.py:wandb_internal():90] W&B internal server running at pid: 42238, started at: 2025-04-17 16:12:34.324175
+2025-04-17 16:12:34,326 INFO    WriterThread:42238 [datastore.py:open_for_write():75] open: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/run-s5fe661e.wandb
+2025-04-17 16:12:34,326 DEBUG   SenderThread:42238 [sender.py:send():236] send: header
+2025-04-17 16:12:34,326 DEBUG   SenderThread:42238 [sender.py:send():236] send: run
+2025-04-17 16:12:34,740 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: check_version
+2025-04-17 16:12:34,742 INFO    SenderThread:42238 [dir_watcher.py:__init__():216] watching files in: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files
+2025-04-17 16:12:34,742 INFO    SenderThread:42238 [sender.py:_start_run_threads():815] run started: s5fe661e with start time 1744881154
+2025-04-17 16:12:34,742 DEBUG   SenderThread:42238 [sender.py:send():236] send: summary
+2025-04-17 16:12:34,742 INFO    SenderThread:42238 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-17 16:12:34,742 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: check_version
+2025-04-17 16:12:34,798 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: run_start
+2025-04-17 16:12:34,805 DEBUG   HandlerThread:42238 [meta.py:__init__():35] meta init
+2025-04-17 16:12:34,805 DEBUG   HandlerThread:42238 [meta.py:__init__():49] meta init done
+2025-04-17 16:12:34,805 DEBUG   HandlerThread:42238 [meta.py:probe():209] probe
+2025-04-17 16:12:34,812 DEBUG   HandlerThread:42238 [meta.py:_setup_git():199] setup git
+2025-04-17 16:12:34,816 DEBUG   HandlerThread:42238 [meta.py:_setup_git():206] setup git done
+2025-04-17 16:12:34,816 DEBUG   HandlerThread:42238 [meta.py:_save_pip():53] save pip
+2025-04-17 16:12:34,816 DEBUG   HandlerThread:42238 [meta.py:_save_pip():67] save pip done
+2025-04-17 16:12:34,816 DEBUG   HandlerThread:42238 [meta.py:_save_conda():74] save conda
+2025-04-17 16:12:35,744 INFO    Thread-7  :42238 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/conda-environment.yaml
+2025-04-17 16:12:35,745 INFO    Thread-7  :42238 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/wandb-summary.json
+2025-04-17 16:12:35,745 INFO    Thread-7  :42238 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/requirements.txt
+2025-04-17 16:12:40,718 DEBUG   HandlerThread:42238 [meta.py:_save_conda():84] save conda done
+2025-04-17 16:12:40,718 DEBUG   HandlerThread:42238 [meta.py:probe():247] probe done
+2025-04-17 16:12:40,745 INFO    Thread-7  :42238 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/conda-environment.yaml
+2025-04-17 16:12:40,746 INFO    Thread-7  :42238 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/output.log
+2025-04-17 16:12:40,746 INFO    Thread-7  :42238 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/wandb-metadata.json
+2025-04-17 16:12:40,753 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: stop_status
+2025-04-17 16:12:40,753 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: stop_status
+2025-04-17 16:12:41,109 DEBUG   SenderThread:42238 [sender.py:send():236] send: telemetry
+2025-04-17 16:12:41,110 DEBUG   SenderThread:42238 [sender.py:send():236] send: telemetry
+2025-04-17 16:12:41,110 DEBUG   SenderThread:42238 [sender.py:send():236] send: files
+2025-04-17 16:12:41,110 INFO    SenderThread:42238 [sender.py:_save_file():952] saving file wandb-metadata.json with policy now
+2025-04-17 16:12:41,745 INFO    Thread-7  :42238 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/output.log
+2025-04-17 16:12:41,902 INFO    Thread-11 :42238 [upload_job.py:push():138] Uploaded file /tmp/tmpq2ntnsx2wandb/e43bf18t-wandb-metadata.json
+2025-04-17 16:12:42,310 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:42,310 DEBUG   SenderThread:42238 [sender.py:send():236] send: exit
+2025-04-17 16:12:42,310 INFO    SenderThread:42238 [sender.py:send_exit():372] handling exit code: 1
+2025-04-17 16:12:42,311 INFO    SenderThread:42238 [sender.py:send_exit():374] handling runtime: 7
+2025-04-17 16:12:42,311 INFO    SenderThread:42238 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-17 16:12:42,311 INFO    SenderThread:42238 [sender.py:send_exit():380] send defer
+2025-04-17 16:12:42,311 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:42,312 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:42,312 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 0
+2025-04-17 16:12:42,312 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:42,312 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 0
+2025-04-17 16:12:42,312 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 1
+2025-04-17 16:12:42,312 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:42,312 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 1
+2025-04-17 16:12:42,356 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:42,356 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 1
+2025-04-17 16:12:42,356 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 2
+2025-04-17 16:12:42,356 DEBUG   SenderThread:42238 [sender.py:send():236] send: stats
+2025-04-17 16:12:42,357 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:42,357 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 2
+2025-04-17 16:12:42,357 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:42,357 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 2
+2025-04-17 16:12:42,357 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 3
+2025-04-17 16:12:42,357 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:42,357 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 3
+2025-04-17 16:12:42,357 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:42,357 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 3
+2025-04-17 16:12:42,357 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 4
+2025-04-17 16:12:42,357 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:42,357 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 4
+2025-04-17 16:12:42,357 DEBUG   SenderThread:42238 [sender.py:send():236] send: summary
+2025-04-17 16:12:42,357 INFO    SenderThread:42238 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-17 16:12:42,357 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:42,357 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 4
+2025-04-17 16:12:42,357 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 5
+2025-04-17 16:12:42,357 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:42,357 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 5
+2025-04-17 16:12:42,357 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:42,357 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 5
+2025-04-17 16:12:42,412 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:42,741 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 6
+2025-04-17 16:12:42,741 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:42,741 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:42,741 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 6
+2025-04-17 16:12:42,741 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:42,742 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 6
+2025-04-17 16:12:42,742 INFO    SenderThread:42238 [dir_watcher.py:finish():353] shutting down directory watcher
+2025-04-17 16:12:42,746 INFO    Thread-7  :42238 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/output.log
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/wandb-summary.json
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/config.yaml
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:finish():383] scan: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/wandb-summary.json wandb-summary.json
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/conda-environment.yaml conda-environment.yaml
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/config.yaml config.yaml
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/requirements.txt requirements.txt
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/wandb-metadata.json wandb-metadata.json
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/output.log output.log
+2025-04-17 16:12:42,746 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 7
+2025-04-17 16:12:42,746 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:42,746 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 7
+2025-04-17 16:12:42,747 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:42,747 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 7
+2025-04-17 16:12:42,747 INFO    SenderThread:42238 [file_pusher.py:finish():171] shutting down file pusher
+2025-04-17 16:12:42,842 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:42,842 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:42,944 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:42,944 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,046 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:43,046 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,148 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:43,148 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,249 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:43,249 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,351 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:43,351 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,453 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:43,453 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,555 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:43,556 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,582 INFO    Thread-14 :42238 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/config.yaml
+2025-04-17 16:12:43,587 INFO    Thread-15 :42238 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/requirements.txt
+2025-04-17 16:12:43,597 INFO    Thread-12 :42238 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/wandb-summary.json
+2025-04-17 16:12:43,631 INFO    Thread-13 :42238 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/conda-environment.yaml
+2025-04-17 16:12:43,632 INFO    Thread-16 :42238 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/files/output.log
+2025-04-17 16:12:43,657 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:43,657 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,759 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:43,759 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:43,833 INFO    Thread-6 (_thread_body):42238 [sender.py:transition_state():393] send defer: 8
+2025-04-17 16:12:43,833 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:43,833 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 8
+2025-04-17 16:12:43,833 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:43,834 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 8
+2025-04-17 16:12:43,861 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:44,392 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 9
+2025-04-17 16:12:44,392 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:44,393 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:44,393 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 9
+2025-04-17 16:12:44,393 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:44,393 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 9
+2025-04-17 16:12:44,393 INFO    SenderThread:42238 [sender.py:transition_state():393] send defer: 10
+2025-04-17 16:12:44,394 DEBUG   SenderThread:42238 [sender.py:send():236] send: final
+2025-04-17 16:12:44,394 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: defer
+2025-04-17 16:12:44,394 INFO    HandlerThread:42238 [handler.py:handle_request_defer():163] handle defer: 10
+2025-04-17 16:12:44,394 DEBUG   SenderThread:42238 [sender.py:send():236] send: footer
+2025-04-17 16:12:44,394 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: defer
+2025-04-17 16:12:44,394 INFO    SenderThread:42238 [sender.py:send_request_defer():389] handle sender defer: 10
+2025-04-17 16:12:44,494 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: poll_exit
+2025-04-17 16:12:44,494 DEBUG   SenderThread:42238 [sender.py:send_request():250] send_request: poll_exit
+2025-04-17 16:12:44,495 INFO    SenderThread:42238 [file_pusher.py:join():176] waiting for file pusher
+2025-04-17 16:12:45,225 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: sampled_history
+2025-04-17 16:12:45,226 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: get_summary
+2025-04-17 16:12:45,227 DEBUG   HandlerThread:42238 [handler.py:handle_request():140] handle_request: shutdown
+2025-04-17 16:12:45,227 INFO    HandlerThread:42238 [handler.py:finish():806] shutting down handler
+2025-04-17 16:12:45,394 INFO    WriterThread:42238 [datastore.py:close():279] close: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250417_161234-s5fe661e/run-s5fe661e.wandb
+2025-04-17 16:12:46,124 INFO    SenderThread:42238 [sender.py:finish():1114] shutting down sender
+2025-04-17 16:12:46,124 INFO    SenderThread:42238 [file_pusher.py:finish():171] shutting down file pusher
+2025-04-17 16:12:46,124 INFO    SenderThread:42238 [file_pusher.py:join():176] waiting for file pusher
+2025-04-17 16:12:46,125 INFO    MainThread:42238 [internal.py:handle_exit():80] Internal process exited

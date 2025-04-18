@@ -11,7 +11,7 @@ from isaaclab.app import AppLauncher
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from RL_Algorithm.Function_based.DQN import DQN
-
+import wandb
 from tqdm import tqdm
 
 # add argparse arguments
@@ -57,7 +57,6 @@ import torch.nn.functional as F
 import numpy as np
 import itertools
 
-HYDRA_FULL_ERROR=1
 
 from isaaclab.envs import (
     DirectMARLEnv,
@@ -73,15 +72,6 @@ from isaaclab_tasks.utils.hydra import hydra_task_config
 # Import extensions to set up environment tasks
 import CartPole.tasks  # noqa: F401
 
-seed = 42
-random.seed(seed)
-np.random.seed(seed)
-torch.manual_seed(seed)
-os.environ['PYTHONHASHSEED'] = str(seed)
-
-# CUDA determinism
-torch.cuda.manual_seed(seed)
-torch.cuda.manual_seed_all(seed)
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
 torch.backends.cudnn.deterministic = False
@@ -111,18 +101,9 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # ========================= Can be modified ========================== #
 
     # hyperparameters
-    num_of_action = 13
-    action_range = [-20.0, 20.0]
-    learning_rate = 0.0001
-    hidden_dim = 512
     n_episodes = 5000
     initial_epsilon = 1.0
-    epsilon_decay = 0.999
-    final_epsilon = 0.1
-    discount = 0.99
-    buffer_size = 10000
-    batch_size = 128
-    target_update_freq = 1000
+    final_epsilon = 0.001
 
     # set up matplotlib
     is_ipython = 'inline' in matplotlib.get_backend()
@@ -145,13 +126,15 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     # Define hyperparameter grid
     param_grid = {
-        "num_of_action":[13],
-        "learning_rate": [1e-3],
+        "num_of_action":[7],
+        "action_range":[20.0],        
+        "learning_rate": [0.0001],
+        "epsilon_decay": [0.0003],
+        "discount":[0.5, 0.99],        
         "hidden_dim": [128],
-        "epsilon_decay": [0.9999],
-        "discount":[0.9],
         "buffer_size":[1000],
-        "batch_size":[128]
+        "batch_size":[32],
+        "tau":[0.001]
     }
 
     # Create all combinations
@@ -160,12 +143,20 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     for config_idx, values in enumerate(grid):
         config = dict(zip(param_names, values))
-        # print(f"\n===== Training Config {config_idx+1}/{len(grid)}: {config} =====")
+        print(f"\n===== Training Config {config_idx+1}/{len(grid)}: {config} =====")
+
+        Experiment = "Discount "+str(config["discount"])
+        
+        # Initialize Weights and Biases (wandb) for tracking and logging metrics during training
+        wandb.init( # type: ignore
+            project='DRL_HW3',  # The name of the project in wandb
+            name=Algorithm_name+"_"+Experiment  # The name of the current run
+        )
 
         agent = DQN(
             device=device,
-            num_of_action=num_of_action,
-            action_range=action_range,
+            num_of_action=config["num_of_action"],
+            action_range=[-config["action_range"],config["action_range"]],
             learning_rate=config["learning_rate"],
             hidden_dim=config["hidden_dim"],
             initial_epsilon=initial_epsilon,
@@ -173,46 +164,46 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             final_epsilon=final_epsilon,
             discount_factor=config["discount"],
             buffer_size=config["buffer_size"],
-            batch_size=config["batch_size"]
+            batch_size=config["batch_size"],
+            tau=config["tau"]
         )
 
         # reset environment
         obs, _ = env.reset()
         timestep = 0
+        sum_step = 0
+        sum_reward = 0.0
+
         # simulate environment
         while simulation_app.is_running():
-            # run everything in inference mode
-            # with torch.inference_mode():
-
-            print("Batch Size:", agent.batch_size)
-            print("Learning Rate:", agent.learning_rate)
-            print("num_of_action:", agent.num_of_action)
-            print("action_range:", agent.action_range)
-            print("hidden_dim:", agent.hidden_dim)
-            print("initial_epsilon:", agent.initial_epsilon)
-            print("epsilon_decay:", agent.epsilon_decay)
-            print("final_epsilon:", agent.final_epsilon)
-            print("discount_factor:", agent.discount_factor)
-            print("buffer_size:", agent.buffer_size)
 
             for episode in tqdm(range(n_episodes)): # type: ignore
                 # print(agent.epsilon)
-                agent.learn(env)
+                step, reward = agent.learn(env, 1000)
 
-            # if episode % 100 == 0: # type: ignore
-            #     print(agent.epsilon)
+                sum_step += step
+                sum_reward += reward
+                wandb.log({ # type: ignore
+                    'num_step': step, # Steps taken in the current episode
+                    'reward': reward
+                })
 
-            #     # Save Q-Learning agent
-            #     w_file = f"{Algorithm_name}_{episode}_{num_of_action}_{action_range[1]}.json" # type: ignore
-            #     full_path = os.path.join(f"w/{task_name}", Algorithm_name)
-            #     agent.save_w(full_path, w_file)
-            print("Average Return:", sum(agent.episode_durations)/n_episodes)
-            # print('Complete')
-            agent.plot_durations(show_result=True)
-            plt.ioff()
-            # plt.show()
-            plt.savefig(f"{agent.batch_size}_{agent.learning_rate}_{agent.num_of_action}_{agent.hidden_dim}_{agent.epsilon_decay}_{agent.discount_factor}_{agent.buffer_size}.png")  # บันทึกไฟล์ภาพ
-            plt.close()                # ปิด plot เพื่อไม่ให้แสดง
+                if episode % 100 == 0: # type: ignore
+                    print(sum_step / 100.0)
+                    
+                    wandb.log({ # type: ignore
+                        'avg_step': sum_step / 100.0,
+                        'avg_reward': sum_reward / 100.0
+                    })
+                    sum_step = 0.0
+                    sum_reward = 0.0
+
+                    # Save Q-Learning agent
+                    w_file = f"{Algorithm_name}_{episode}_{agent.num_of_action}_{agent.action_range[1]}_{agent.discount_factor}_{agent.lr}_{agent.epsilon_decay}_{agent.hidden_dim}_{agent.buffer_size}_{agent.batch_size}_{agent.tau}.pt" # type: ignore
+                    full_path = os.path.join(f"w/{task_name}", Algorithm_name)
+                    agent.save_w(full_path, w_file)
+
+            print('Complete')
             if args_cli.video:
                 timestep += 1
                 # Exit the play loop after recording one video
@@ -220,6 +211,10 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                     break
 
             break
+
+        # Finish the wandb run and save the logged metrics
+        wandb.finish() # type: ignore 
+ 
     # ==================================================================== #
 
     # close the simulator

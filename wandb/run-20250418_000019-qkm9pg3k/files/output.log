@@ -1,0 +1,10 @@
+  0%|                                                         | 1/2000 [00:00<20:53,  1.60it/s]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/talae/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 101, in hydra_main
+    func(env_cfg, agent_cfg, *args, **kwargs)
+  File "/home/talae/DRL_HW3/DRL_HW3/scripts/Function_based/train_MC_REINFORCE.py", line 192, in main
+    sum_reward += reward
+RuntimeError: The size of tensor a (43) must match the size of tensor b (40) at non-singleton dimension 0
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+tensor([0.0038], device='cuda:0')

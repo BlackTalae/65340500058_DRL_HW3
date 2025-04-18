@@ -1,0 +1,110 @@
+0.21
+[INFO] Saved weights to w/Stabilize/DQN/DQN_0_13_20.0_0.99_0.01_0.0003_128_1000_32_0.0005.json
+  0%|                                                                | 0/5000 [00:00<?, ?it/s]/home/talae/DRL_HW3/DRL_HW3/RL_Algorithm/Function_based/DQN.py:333: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  state = torch.tensor(obs_list, dtype=torch.float32, device=self.device).unsqueeze(0)
+/home/talae/DRL_HW3/DRL_HW3/RL_Algorithm/Function_based/DQN.py:361: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  next_state = torch.tensor(next_obs_list, dtype=torch.float32, device=self.device)
+
+
+  2%|▉                                                      | 81/5000 [00:05<05:03, 16.19it/s]
+22.73
+
+
+
+  3%|█▊                                                    | 168/5000 [00:11<04:58, 16.17it/s]
+26.48
+
+
+
+
+  6%|███                                                   | 286/5000 [00:19<06:11, 12.68it/s]
+22.93
+
+
+
+
+  8%|████                                                  | 377/5000 [00:27<06:13, 12.37it/s]
+27.41
+
+
+
+ 10%|█████▏                                                | 481/5000 [00:33<03:27, 21.78it/s]
+21.06
+
+
+
+
+ 12%|██████▍                                               | 593/5000 [00:41<07:43,  9.50it/s]
+25.39
+
+
+
+ 14%|███████▌                                              | 696/5000 [00:47<05:27, 13.16it/s]
+21.33
+
+
+
+ 16%|████████▌                                             | 791/5000 [00:53<03:21, 20.91it/s]
+24.19
+
+
+
+
+ 18%|█████████▋                                            | 898/5000 [01:01<06:08, 11.14it/s]
+24.63
+
+
+
+ 20%|██████████▋                                           | 988/5000 [01:07<04:25, 15.09it/s]
+25.23
+
+
+
+
+ 22%|███████████▋                                         | 1098/5000 [01:15<03:42, 17.52it/s]
+24.9
+
+
+
+ 24%|████████████▌                                        | 1191/5000 [01:21<03:59, 15.89it/s]
+23.43
+
+
+
+ 26%|█████████████▌                                       | 1285/5000 [01:27<04:01, 15.39it/s]
+23.22
+
+
+
+ 28%|██████████████▋                                      | 1381/5000 [01:33<03:54, 15.44it/s]
+21.49
+
+
+
+ 30%|███████████████▋                                     | 1475/5000 [01:39<04:40, 12.56it/s]
+23.58
+
+
+
+
+ 32%|████████████████▊                                    | 1588/5000 [01:47<03:59, 14.22it/s]
+24.66
+
+
+
+ 34%|█████████████████▊                                   | 1676/5000 [01:53<04:17, 12.89it/s]
+23.58
+
+
+
+
+ 36%|███████████████████                                  | 1795/5000 [02:01<04:16, 12.49it/s]
+20.27
+
+
+
+ 38%|███████████████████▉                                 | 1883/5000 [02:07<04:09, 12.51it/s]
+21.27
+
+
+

@@ -12,6 +12,7 @@ from collections import namedtuple, deque
 import random
 import matplotlib
 import matplotlib.pyplot as plt
+import os
 
 class MC_REINFORCE_network(nn.Module):
     """
@@ -28,8 +29,6 @@ class MC_REINFORCE_network(nn.Module):
         super(MC_REINFORCE_network, self).__init__()
         # ========= put your code here ========= #
         self.fc1 = nn.Linear(n_observations, hidden_size)
-        self.dropout = nn.Dropout(p=dropout)
-        self.fc2 = nn.Linear(hidden_size, hidden_size)
         self.fc3 = nn.Linear(hidden_size, n_actions)
         # ====================================== #
 
@@ -45,9 +44,8 @@ class MC_REINFORCE_network(nn.Module):
         """
         # ========= put your code here ========= #
         x = F.relu(self.fc1(x))
-        x = self.dropout(x)
-        x = F.relu(self.fc2(x))
-        action_probs = F.softmax(self.fc3(x), dim=-1)
+        x = F.relu(self.fc3(x))
+        action_probs = F.softmax(x, dim=-1)
         action_probs = torch.clamp(action_probs, min=1e-8, max=1.0)
         return action_probs
         # ====================================== #
@@ -83,14 +81,11 @@ class MC_REINFORCE(BaseAlgorithm):
         self.optimizer = optim.AdamW(self.policy_net.parameters(), lr=learning_rate)
 
         self.device = device
+        self.hidden = hidden_dim
         self.steps_done = 0
 
         self.episode_durations = []
-  
-        # Experiment with different values and configurations to see how they affect the training process.
-        # Remember to document any changes you make and analyze their impact on the agent's performance.
-
-        pass
+        
         # ====================================== #
 
         super(MC_REINFORCE, self).__init__(
@@ -99,13 +94,6 @@ class MC_REINFORCE(BaseAlgorithm):
             learning_rate=learning_rate,
             discount_factor=discount_factor,
         )
-
-        # set up matplotlib
-        self.is_ipython = 'inline' in matplotlib.get_backend()
-        if self.is_ipython:
-            from IPython import display
-
-        plt.ion()
     
     def calculate_stepwise_returns(self, rewards):
         """
@@ -118,14 +106,18 @@ class MC_REINFORCE(BaseAlgorithm):
             Tensor: Normalized stepwise returns.
         """
         # ========= put your code here ========= #
+
+        # Monte Carlo Return Calculation
         R = 0
         returns = []
         for r in reversed(rewards):
             R = r + self.discount_factor * R
             returns.insert(0, R)
+
+        # Convert to tensor and normalize
         returns = torch.tensor(returns, dtype=torch.float32).to(self.device)
-        if returns.std() > 0:
-            returns = (returns - returns.mean()) / (returns.std() + 1e-8)
+        returns = F.normalize(returns, dim=0)
+
         return returns
         # ====================================== #
 
@@ -148,64 +140,57 @@ class MC_REINFORCE(BaseAlgorithm):
         # Flag to indicate episode termination (boolean)
         # Step counter (int)
         # ========= put your code here ========= #
-        state = env.reset()
-        state = torch.tensor([state[0]['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
-        state = (state - state.mean()) / (state.std() + 1e-8)
+
+        # Initialization
+        state, _ = env.reset()
 
         trajectory = []
         log_prob_actions = []
         rewards = []
+        entropy_list = []
 
         done = False
         timestep = 0
         episode_return = 0.0
         # ====================================== #
         
-        # ===== Collect trajectory through agent-environment interaction ===== #
+        # Trajectory Collection Loop
         while not done:
             
-            # Predict action from the policy network
-            # ========= put your code here ========= #
-            action_probs = self.policy_net(state)
+            # Get state tensor and predict action
+            state_tensor = torch.tensor([state['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
+            action_probs = self.policy_net(state_tensor)
             dist = distributions.Categorical(action_probs)
-            action = dist.sample().view(1, -1)
+            action = dist.sample()
 
+            # Get log-probability and entropy of action
             log_prob = dist.log_prob(action)
-            action = self.scale_action(action)
-            # print(action)
-            # ====================================== #
+            entropy = dist.entropy()
+            entropy_list.append(entropy)
 
-            # Execute action in the environment and observe next state and reward
-            # ========= put your code here ========= #
+            # Scale action and step environment
+            action = action.view(1, -1)
+            action = self.scale_action(action)            
             next_state, reward, terminated, truncated, _ = env.step(action)
-            # print(reward)
-            next_state = torch.tensor([next_state['policy'][0, i] for i in range(4)], dtype=torch.float32).to(self.device)
-            # ====================================== #
 
-            # Store action log probability reward and trajectory history
-            # ========= put your code here ========= #
+            # Save log-prob, reward, and full transition
             log_prob_actions.append(log_prob)
             rewards.append(reward)
-            trajectory.append((state, action.item(), reward))
-            # ====================================== #
-            
-            # Update state
+            trajectory.append((state_tensor, action.item(), reward))
+
+            # Update state and counters
             state = next_state
             episode_return += reward
             timestep += 1
             done = terminated or truncated
-            if done:
-                self.plot_durations(timestep)
-                break
 
-        # ===== Stack log_prob_actions &  stepwise_returns ===== #
-        # ========= put your code here ========= #
+        # Prepare return values
         stepwise_returns = self.calculate_stepwise_returns(rewards)
         log_prob_actions = torch.stack(log_prob_actions)
-        return episode_return, stepwise_returns, log_prob_actions, trajectory
+        return timestep, episode_return, stepwise_returns, log_prob_actions, trajectory, torch.stack(entropy_list)
         # ====================================== #
     
-    def calculate_loss(self, stepwise_returns, log_prob_actions):
+    def calculate_loss(self, stepwise_returns, log_prob_actions, entropy_list):
         """
         Compute the loss for policy optimization.
 
@@ -217,10 +202,11 @@ class MC_REINFORCE(BaseAlgorithm):
             Tensor: Computed loss.
         """
         # ========= put your code here ========= #
-        return -torch.sum(log_prob_actions * stepwise_returns)
+        # Policy Gradient Loss
+        return -torch.sum(log_prob_actions * stepwise_returns)/len(stepwise_returns)
         # ====================================== #
 
-    def update_policy(self, stepwise_returns, log_prob_actions):
+    def update_policy(self, stepwise_returns, log_prob_actions, entropy_list):
         """
         Update the policy using the calculated loss.
 
@@ -232,12 +218,13 @@ class MC_REINFORCE(BaseAlgorithm):
             float: Loss value after the update.
         """
         # ========= put your code here ========= #
-        loss = self.calculate_loss(stepwise_returns, log_prob_actions)
+        # Calculate loss
+        loss = self.calculate_loss(stepwise_returns, log_prob_actions, entropy_list)
 
+        # Backward pass and optimizer step
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
-
         return loss.item()
         # ====================================== #
     
@@ -252,40 +239,38 @@ class MC_REINFORCE(BaseAlgorithm):
             Tuple: (episode_return, loss, trajectory)
         """
         # ========= put your code here ========= #
+
+        # Train policy for 1 episode
         self.policy_net.train()
-        episode_return, stepwise_returns, log_prob_actions, trajectory = self.generate_trajectory(env)
-        loss = self.update_policy(stepwise_returns, log_prob_actions)
-        # return episode_return, loss, trajectory
+        timestep, episode_return, stepwise_returns, log_prob_actions, trajectory, entropy = self.generate_trajectory(env)
+        
+        # Policy update
+        loss = self.update_policy(stepwise_returns, log_prob_actions, entropy)
+        
+        # Return training info
+        return timestep, episode_return, stepwise_returns, loss, trajectory
         # ====================================== #
 
-
-    # Consider modifying this function to visualize other aspects of the training process.
-    # ================================================================================== #
-    def plot_durations(self, timestep=None, show_result=False):
-        if timestep is not None:
-            self.episode_durations.append(timestep)
-
-        plt.figure(1)
-        durations_t = torch.tensor(self.episode_durations, dtype=torch.float)
-        if show_result:
-            plt.title('Result')
+    def save_w(self, path, filename):
+        """
+        Save model weight.
+        """
+        # ========= put your code here ========= #
+        os.makedirs(path, exist_ok=True)
+        file_path = os.path.join(path, filename)
+        torch.save(self.policy_net.state_dict(), file_path)
+        print(f"[INFO] Saved model weights to {file_path}")
+        # ====================================== #
+            
+    def load_w(self, path, filename):
+        """
+        Load model weight.
+        """
+        # ========= put your code here ========= #
+        file_path = os.path.join(path, filename)
+        if os.path.exists(file_path):
+            self.policy_net.load_state_dict(torch.load(file_path, map_location=self.device))
+            print(f"[INFO] Loaded model weights from {file_path}")
         else:
-            plt.clf()
-            plt.title('Training...')
-        plt.xlabel('Episode')
-        plt.ylabel('Duration')
-        plt.plot(durations_t.numpy())
-        # Take 100 episode averages and plot them too
-        if len(durations_t) >= 100:
-            means = durations_t.unfold(0, 100, 1).mean(1).view(-1)
-            means = torch.cat((torch.zeros(99), means))
-            plt.plot(means.numpy())
-
-        plt.pause(0.001)  # pause a bit so that plots are updated
-        if self.is_ipython:
-            if not show_result:
-                display.display(plt.gcf()) # type: ignore
-                display.clear_output(wait=True) # type: ignore
-            else:
-                display.display(plt.gcf()) # type: ignore
-    # ================================================================================== #
+            raise FileNotFoundError(f"[ERROR] File not found: {file_path}")
+        # ====================================== #

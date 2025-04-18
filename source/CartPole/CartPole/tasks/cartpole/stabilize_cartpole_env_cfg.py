@@ -60,7 +60,7 @@ class CartpoleSceneCfg(InteractiveSceneCfg):
 class ActionsCfg:
     """Action specifications for the MDP."""
 
-    joint_effort = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["slider_to_cart"], scale=1.0)
+    joint_effort = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["slider_to_cart"], scale=1.0) # type: ignore
 
 
 @configclass
@@ -72,8 +72,8 @@ class ObservationsCfg:
         """Observations for policy group."""
 
         # observation terms (order preserved)
-        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel)
-        joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel)
+        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel) # type: ignore
+        joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel) # type: ignore
 
         def __post_init__(self) -> None:
             self.enable_corruption = False
@@ -89,7 +89,7 @@ class EventCfg:
 
     # reset
     reset_cart_position = EventTerm(
-        func=mdp.reset_joints_by_offset,
+        func=mdp.reset_joints_by_offset, # type: ignore
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]),
@@ -99,7 +99,7 @@ class EventCfg:
     )
 
     reset_pole_position = EventTerm(
-        func=mdp.reset_joints_by_offset,
+        func=mdp.reset_joints_by_offset, # type: ignore
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]),
@@ -114,42 +114,42 @@ class RewardsCfg:
     """Reward terms for the MDP."""
 
     # (1) Constant running reward
-    alive = RewTerm(func=mdp.is_alive, weight=1.0)
+    alive = RewTerm(func=mdp.is_alive, weight=1.0) # type: ignore
     # (2) Failure penalty
-    terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)
-    # # (3) Primary task: keep pole upright
-    # pole_pos = RewTerm(
-    #     func=mdp.joint_pos_target_l2,
-    #     weight=-1.0,
-    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "target": 0.0},
-    # )
-    # # (4) Shaping tasks: lower cart velocity
-    # cart_vel = RewTerm(
-    #     func=mdp.joint_vel_l1,
-    #     weight=-0.01,
-    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"])},
-    # )
-    # # (5) Shaping tasks: lower pole angular velocity
-    # pole_vel = RewTerm(
-    #     func=mdp.joint_vel_l1,
-    #     weight=-0.005,
-    #     params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"])},
-    # )
+    terminating = RewTerm(func=mdp.is_terminated, weight=-2.0) # type: ignore
+    # (3) Primary task: keep pole upright
+    pole_pos = RewTerm(
+        func=mdp.joint_pos_target_l2,
+        weight=-1.0,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "target": 0.0},
+    )
+    # (4) Shaping tasks: lower cart velocity
+    cart_vel = RewTerm(
+        func=mdp.joint_vel_l1, # type: ignore
+        weight=-0.01,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"])},
+    )
+    # (5) Shaping tasks: lower pole angular velocity
+    pole_vel = RewTerm(
+        func=mdp.joint_vel_l1, # type: ignore
+        weight=-0.005,
+        params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"])},
+    )
 
 @configclass
 class TerminationsCfg:
     """Termination terms for the MDP."""
 
     # (1) Time out
-    time_out = DoneTerm(func=mdp.time_out, time_out=True)
+    time_out = DoneTerm(func=mdp.time_out, time_out=True) # type: ignore
     # (2) Cart out of bounds
     cart_out_of_bounds = DoneTerm(
-        func=mdp.joint_pos_out_of_manual_limit,
+        func=mdp.joint_pos_out_of_manual_limit, # type: ignore
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=["slider_to_cart"]), "bounds": (-3.0, 3.0)},
     )
     # (3) Pole out of bounds
     pole_out_of_bounds = DoneTerm(
-        func=mdp.joint_pos_out_of_manual_limit,
+        func=mdp.joint_pos_out_of_manual_limit, # type: ignore
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]), "bounds": (float(np.deg2rad(-24.0)), float(np.deg2rad(24.0)))},
     )
 

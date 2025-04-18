@@ -11,7 +11,7 @@ from isaaclab.app import AppLauncher
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from RL_Algorithm.Function_based.MC_REINFORCE import MC_REINFORCE
-
+import wandb
 from tqdm import tqdm
 
 # add argparse arguments
@@ -73,15 +73,6 @@ from isaaclab_tasks.utils.hydra import hydra_task_config
 # Import extensions to set up environment tasks
 import CartPole.tasks  # noqa: F401
 
-seed = 42
-random.seed(seed)
-np.random.seed(seed)
-torch.manual_seed(seed)
-os.environ['PYTHONHASHSEED'] = str(seed)
-
-# CUDA determinism
-torch.cuda.manual_seed(seed)
-torch.cuda.manual_seed_all(seed)
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
 torch.backends.cudnn.deterministic = False
@@ -111,18 +102,9 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # ========================= Can be modified ========================== #
 
     # hyperparameters
-    num_of_action = 13
-    action_range = [-12.0, 12.0]
-    learning_rate = 0.0001
-    hidden_dim = 512
-    n_episodes = 2000
-    initial_epsilon = 1.0
-    epsilon_decay = 0.999
-    final_epsilon = 0.1
-    discount = 0.99
-    buffer_size = 10000
-    batch_size = 128
-    target_update_freq = 1000
+    num_of_action = 7
+    action_range = [-20.0, 20.0]
+    n_episodes = 2002
 
     # set up matplotlib
     is_ipython = 'inline' in matplotlib.get_backend()
@@ -141,14 +123,13 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     print("device: ", device)
 
     task_name = str(args_cli.task).split('-')[0]  # Stabilize, SwingUp
-    Algorithm_name = "DQN"
+    Algorithm_name = "MC_REINFORCE"
 
     # Define hyperparameter grid
     param_grid = {
-        "learning_rate": [1e-4],
+        "learning_rate": [1e-4, 1e-3, 1e-2],
         "hidden_dim": [128],
-        "discount":[0.99],
-        "dropout":[0.0]
+        "discount":[0.01]
     }
 
     # Create all combinations
@@ -157,43 +138,57 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     for config_idx, values in enumerate(grid):
         config = dict(zip(param_names, values))
-        # print(f"\n===== Training Config {config_idx+1}/{len(grid)}: {config} =====")
+        print(f"\n===== Training Config {config_idx+1}/{len(grid)}: {config} =====")
+
+        Experiment = "Discount "+str(config["discount"])
+        # Initialize Weights and Biases (wandb) for tracking and logging metrics during training
+        wandb.init( # type: ignore
+            project='DRL_HW3',  # The name of the project in wandb
+            name=Algorithm_name+"_"+Experiment  # The name of the current run
+        )
 
         agent = MC_REINFORCE(
             device=device,
             learning_rate=config["learning_rate"],
             hidden_dim=config["hidden_dim"],
             discount_factor=config["discount"],
-            dropout=config["dropout"],
-            num_of_action=num_of_action
+            num_of_action=num_of_action,
+            action_range=action_range
         )
 
         # reset environment
         obs, _ = env.reset()
         timestep = 0
+        sum_step = 0
+        sum_reward = 0.0
+        
         # simulate environment
         while simulation_app.is_running():
-            # run everything in inference mode
-            # with torch.inference_mode():
 
             for episode in tqdm(range(n_episodes)): # type: ignore
                 # print(agent.epsilon)
-                agent.learn(env)
+                step, reward, _,  _, _ = agent.learn(env)
+                # print(reward)
+                sum_step += step
+                sum_reward += reward
+                wandb.log({ # type: ignore
+                    'num_step': step, # Steps taken in the current episode
+                    'reward': reward
+                })
+                if episode % 100 == 0: # type: ignore
+                    print(sum_step / 100.0)
+                    wandb.log({ # type: ignore
+                        'avg_step': sum_step / 100.0,
+                        'avg_reward': sum_reward / 100.0
+                    })
+                    sum_step = 0.0
+                    sum_reward = 0.0
 
-            # if episode % 100 == 0: # type: ignore
-            #     print(agent.epsilon)
+                    # Save Q-Learning agent
+                    w_file = f"{Algorithm_name}_{episode}_{agent.num_of_action}_{agent.action_range[1]}_{agent.discount_factor}_{agent.lr}_{agent.hidden}.pt" # type: ignore
+                    full_path = os.path.join(f"w/{task_name}", Algorithm_name)
+                    agent.save_w(full_path, w_file)
 
-            #     # Save Q-Learning agent
-            #     w_file = f"{Algorithm_name}_{episode}_{num_of_action}_{action_range[1]}.json" # type: ignore
-            #     full_path = os.path.join(f"w/{task_name}", Algorithm_name)
-            #     agent.save_w(full_path, w_file)
-            print("Average Return:", sum(agent.episode_durations)/n_episodes)
-            # print('Complete')
-            agent.plot_durations(show_result=True)
-            plt.ioff()
-            # plt.show()
-            # plt.savefig(f"{agent.batch_size}_{agent.learning_rate}_{agent.num_of_action}_{agent.hidden_dim}_{agent.epsilon_decay}_{agent.discount_factor}_{agent.buffer_size}.png")  # บันทึกไฟล์ภาพ
-            plt.close()                # ปิด plot เพื่อไม่ให้แสดง
             if args_cli.video:
                 timestep += 1
                 # Exit the play loop after recording one video
@@ -201,6 +196,9 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                     break
 
             break
+
+        # Finish the wandb run and save the logged metrics
+        wandb.finish() # type: ignore 
     # ==================================================================== #
 
     # close the simulator

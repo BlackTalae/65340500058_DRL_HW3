@@ -1,0 +1,210 @@
+2025-04-18 10:16:20,227 INFO    MainThread:118437 [internal.py:wandb_internal():90] W&B internal server running at pid: 118437, started at: 2025-04-18 10:16:20.227582
+2025-04-18 10:16:20,229 DEBUG   SenderThread:118437 [sender.py:send():236] send: header
+2025-04-18 10:16:20,229 DEBUG   SenderThread:118437 [sender.py:send():236] send: run
+2025-04-18 10:16:20,230 INFO    WriterThread:118437 [datastore.py:open_for_write():75] open: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/run-ne80usz7.wandb
+2025-04-18 10:16:20,700 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: check_version
+2025-04-18 10:16:20,703 INFO    SenderThread:118437 [dir_watcher.py:__init__():216] watching files in: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files
+2025-04-18 10:16:20,703 INFO    SenderThread:118437 [sender.py:_start_run_threads():815] run started: ne80usz7 with start time 1744946179
+2025-04-18 10:16:20,703 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:20,703 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:20,703 DEBUG   SenderThread:118437 [sender.py:send_request():250] send_request: check_version
+2025-04-18 10:16:20,765 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: run_start
+2025-04-18 10:16:20,772 DEBUG   HandlerThread:118437 [meta.py:__init__():35] meta init
+2025-04-18 10:16:20,772 DEBUG   HandlerThread:118437 [meta.py:__init__():49] meta init done
+2025-04-18 10:16:20,772 DEBUG   HandlerThread:118437 [meta.py:probe():209] probe
+2025-04-18 10:16:20,778 DEBUG   HandlerThread:118437 [meta.py:_setup_git():199] setup git
+2025-04-18 10:16:20,782 DEBUG   HandlerThread:118437 [meta.py:_setup_git():206] setup git done
+2025-04-18 10:16:20,782 DEBUG   HandlerThread:118437 [meta.py:_save_pip():53] save pip
+2025-04-18 10:16:20,782 DEBUG   HandlerThread:118437 [meta.py:_save_pip():67] save pip done
+2025-04-18 10:16:20,783 DEBUG   HandlerThread:118437 [meta.py:_save_conda():74] save conda
+2025-04-18 10:16:21,704 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/conda-environment.yaml
+2025-04-18 10:16:21,704 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/wandb-summary.json
+2025-04-18 10:16:21,704 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/requirements.txt
+2025-04-18 10:16:26,657 DEBUG   HandlerThread:118437 [meta.py:_save_conda():84] save conda done
+2025-04-18 10:16:26,657 DEBUG   HandlerThread:118437 [meta.py:probe():247] probe done
+2025-04-18 10:16:26,700 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: stop_status
+2025-04-18 10:16:26,700 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:26,701 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:26,701 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:26,701 DEBUG   SenderThread:118437 [sender.py:send_request():250] send_request: stop_status
+2025-04-18 10:16:26,702 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:26,702 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:26,702 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:26,703 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:26,705 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/conda-environment.yaml
+2025-04-18 10:16:26,705 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/output.log
+2025-04-18 10:16:26,705 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_created():269] file/dir created: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/wandb-metadata.json
+2025-04-18 10:16:27,355 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:27,432 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:27,449 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:27,498 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:27,535 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:27,591 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:27,682 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:27,879 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:27,919 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:28,004 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:28,428 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:28,447 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:28,546 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:28,581 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:28,705 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/output.log
+2025-04-18 10:16:28,946 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:29,288 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:29,399 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:29,429 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:29,440 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:29,490 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:29,623 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:29,705 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:29,950 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,038 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,361 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,409 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,660 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,689 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,706 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/output.log
+2025-04-18 10:16:30,728 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,785 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,826 DEBUG   HandlerThread:118437 [handler.py:handle_request():140] handle_request: partial_history
+2025-04-18 10:16:30,973 WARNING MainThread:118437 [internal.py:wandb_internal():153] Internal process interrupt: 1
+2025-04-18 10:16:32,081 DEBUG   SenderThread:118437 [sender.py:send():236] send: telemetry
+2025-04-18 10:16:32,081 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,082 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,083 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,083 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,083 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,084 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,084 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,084 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,084 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,084 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,084 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,084 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,085 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,085 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: files
+2025-04-18 10:16:32,085 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-metadata.json with policy now
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,085 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,085 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,085 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,086 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,086 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,086 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,087 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,087 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,088 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,088 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: history
+2025-04-18 10:16:32,089 DEBUG   SenderThread:118437 [sender.py:send():236] send: summary
+2025-04-18 10:16:32,089 INFO    SenderThread:118437 [sender.py:_save_file():952] saving file wandb-summary.json with policy end
+2025-04-18 10:16:32,707 INFO    Thread-7  :118437 [dir_watcher.py:_on_file_modified():286] file/dir modified: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/wandb-summary.json
+2025-04-18 10:16:32,941 INFO    Thread-11 :118437 [upload_job.py:push():138] Uploaded file /tmp/tmpxxdod1mcwandb/vau5ynwr-wandb-metadata.json
+2025-04-18 10:16:37,981 WARNING MainThread:118437 [internal.py:is_dead():387] Internal process exiting, parent pid 118267 disappeared
+2025-04-18 10:16:37,981 ERROR   MainThread:118437 [internal.py:wandb_internal():149] Internal process shutdown.
+2025-04-18 10:16:38,090 INFO    SenderThread:118437 [sender.py:finish():1114] shutting down sender
+2025-04-18 10:16:38,090 INFO    SenderThread:118437 [dir_watcher.py:finish():353] shutting down directory watcher
+2025-04-18 10:16:38,709 INFO    SenderThread:118437 [dir_watcher.py:finish():383] scan: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files
+2025-04-18 10:16:38,709 INFO    SenderThread:118437 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/wandb-summary.json wandb-summary.json
+2025-04-18 10:16:38,709 INFO    SenderThread:118437 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/conda-environment.yaml conda-environment.yaml
+2025-04-18 10:16:38,709 INFO    SenderThread:118437 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/config.yaml config.yaml
+2025-04-18 10:16:38,709 INFO    SenderThread:118437 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/requirements.txt requirements.txt
+2025-04-18 10:16:38,709 INFO    SenderThread:118437 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/wandb-metadata.json wandb-metadata.json
+2025-04-18 10:16:38,709 INFO    SenderThread:118437 [dir_watcher.py:finish():397] scan save: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/output.log output.log
+2025-04-18 10:16:38,711 INFO    SenderThread:118437 [file_pusher.py:finish():171] shutting down file pusher
+2025-04-18 10:16:38,711 INFO    SenderThread:118437 [file_pusher.py:join():176] waiting for file pusher
+2025-04-18 10:16:38,828 INFO    WriterThread:118437 [datastore.py:close():279] close: /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/run-ne80usz7.wandb
+2025-04-18 10:16:38,834 INFO    HandlerThread:118437 [handler.py:finish():806] shutting down handler
+2025-04-18 10:16:39,444 INFO    Thread-12 :118437 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/wandb-summary.json
+2025-04-18 10:16:39,463 INFO    Thread-13 :118437 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/conda-environment.yaml
+2025-04-18 10:16:39,484 INFO    Thread-15 :118437 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/requirements.txt
+2025-04-18 10:16:39,837 INFO    Thread-16 :118437 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/output.log
+2025-04-18 10:16:40,582 INFO    Thread-14 :118437 [upload_job.py:push():138] Uploaded file /home/talae/DRL_HW3/DRL_HW3/wandb/run-20250418_101619-ne80usz7/files/config.yaml
+2025-04-18 10:16:41,479 INFO    MainThread:118437 [internal.py:handle_exit():80] Internal process exited

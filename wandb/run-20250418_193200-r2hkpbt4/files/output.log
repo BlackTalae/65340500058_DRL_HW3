@@ -1,0 +1,11 @@
+
+0.24
+  0%|                                                                 | 0/2002 [00:00<?, ?it/s]
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/home/talae/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/utils/hydra.py", line 101, in hydra_main
+    func(env_cfg, agent_cfg, *args, **kwargs)
+  File "/home/talae/DRL_HW3/DRL_HW3/scripts/Function_based/train_A2C_discrete.py", line 195, in main
+    w_file = f"{Algorithm_name}_{episode}_{agent.num_of_action}_{agent.action_range[1]}_{agent.discount_factor}_{agent.lr}_{agent.hidden}.pt" # type: ignore
+AttributeError: 'A2C_Discrete' object has no attribute 'hidden'
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
